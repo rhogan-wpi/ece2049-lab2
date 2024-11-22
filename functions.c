@@ -1,3 +1,4 @@
+#include "functions.h"
 // User written functions
 
 // Initializes the two user LEDs
@@ -51,8 +52,24 @@ unsigned char read_buttons()
 }
 
 //Turn on the buzzer
-void buzzer_on(int frequency);
+void buzzer_on(int ticks);
 {
+/* PWM period in ticks for each note
+A = 73
+Bb = 69
+B = 65
+C = 62
+C# = 58
+D = 55
+Eb = 52
+E = 49
+F = 46
+F# = 43
+G = 41
+Ab = 38
+A octave = 36
+*/
+
   // Initialize PWM output on P3.5, which corresponds to TB0.5
   P3SEL |= BIT5; // Select peripheral output mode for P3.5
   P3DIR |= BIT5;
@@ -64,7 +81,7 @@ void buzzer_on(int frequency);
   // Doing this with a hard coded values is NOT the best method
   // We do it here only as an example. You will fix this in Lab 2.
   //
-  TB0CCR0   = frequency;                    // Set the PWM period in ACLK ticks
+  TB0CCR0 = ticks;                    // Set the PWM period in ACLK ticks
   TB0CCTL0 &= ~CCIE;                  // Disable timer interrupts
 
   // Configure CC register 5, which is connected to our PWM pin TB0.5
