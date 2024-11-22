@@ -1,6 +1,12 @@
 #include <stdlib.h>
 
-//Define your struct here
+//note struct defintion
+struct note {
+    int duration; //in ticks
+    int pitch; //in ticks
+};
+
+typedef note Note;
 
 // Initializes the two user LEDs
 void init_user_leds();
