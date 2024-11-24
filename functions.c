@@ -89,3 +89,12 @@ A octave = 36
   TB0CCTL5 &= ~CCIE;                      // Disable capture/compare interrupts
   TB0CCR5   = TB0CCR0/2;                  // Configure a 50% duty cycle
 }
+
+//Global timer A2 for note duration, interrupt timing is 0.001007 seconds
+void runtimerA2(void)
+{
+  TA2CTL = TASSEL_1 | MC_1 | ID_0;
+  TACCR0 = 32
+  TA2CCTL0 = CCIE;
+}
+

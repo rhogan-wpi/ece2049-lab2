@@ -1,95 +1,114 @@
 #include <stdlib.h>
 #include <msp430.h>
 #include "peripherals.h"
-#define ARRAY_LEN 32
-//Testing laptop commit
+#include "functions.h"
+
+// Use an enum as the game state
 typedef enum{
   INIT,
-  OUTPUT,
-  WAIT_FOR_INPUT,
-  INPUT_TRUE,
-  INPUT_FALSE,
-  GAME_OVER,
+  MAIN_GAME,
+  END_SCREEN,
 } state;
-// Test diff
 
-void fake_delay(int seconds)
+// Define a struct to hold note information
+struct Note {
+  int pitch;
+  int duration;
+};
+
+__interrupt void timer_a2()
 {
-  volatile unsigned int n = 0;
-  while (n < (seconds * 6500)) {
-    n++;
+  timer++;
+  if (timer >= note_end && song_start) {
+    BuzzerOff;
+    note_end = timer + scale[current_note].duration;
+    buzzer_on(scale[current_note].pitch);
+    current_note++;
   }
 }
-
-char get_input()
-{
-  char key = 0;
-  while (key == 0) {
-    key = getKey();
-  }
-  return key;
-}
-
-void set_leds(char key)
-{
-  key = key - '0';
-  unsigned char output_mask = 0;
-  // Zero output register
-  P6OUT &= ~(BIT4|BIT3|BIT2|BIT1);
-  if (key == 1)
-    output_mask = output_mask | BIT2;
-  if (key == 2)
-    output_mask = output_mask | BIT1;
-  if (key == 3)
-    output_mask = output_mask | BIT3;
-  if (key == 4)
-    output_mask = output_mask | BIT4;
-  P6OUT = P6OUT | output_mask;
-}
-
-void buzzer_on(char key)
-{
-  key = key - '0';
-  // Initialize PWM output on P3.5, which corresponds to TB0.5
-  P3SEL |= BIT5; // Select peripheral output mode for P3.5
-  P3DIR |= BIT5;
-
-  TB0CTL  = (TBSSEL__ACLK|ID__1|MC__UP);  // Configure Timer B0 to use ACLK, divide by 1, up mode
-  TB0CTL  &= ~TBIE;                       // Explicitly Disable timer interrupts for safety
-
-  // Now configure the timer period, which controls the PWM period
-  // Doing this with a hard coded values is NOT the best method
-  // We do it here only as an example. You will fix this in Lab 2.
-  TB0CCR0   = 128 * key;                    // Set the PWM period in ACLK ticks
-  TB0CCTL0 &= ~CCIE;                  // Disable timer interrupts
-
-  // Configure CC register 5, which is connected to our PWM pin TB0.5
-  TB0CCTL5  = OUTMOD_7;                   // Set/reset mode for PWM
-  TB0CCTL5 &= ~CCIE;                      // Disable capture/compare interrupts
-  TB0CCR5   = TB0CCR0/2;                  // Configure a 50% duty cycle
-}
-
-
 
 void main()
 {
-
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
   // You can then configure it properly, if desired
 
-
   // Initialize the MSP430
   initLeds();
+  init_user_leds();
+  init_buttons();
   configDisplay();
   configKeypad();
   // Clear the display
   Graphics_clearDisplay(&g_sContext);
+  //Start the A2 timer
+
+  // Program the struct that holds the song
+  struct Note scale[] {
+    [0]  = {73,1000},
+    [1]  = {69,1000},
+    [2]  = {65,1000},
+    [3]  = {62,1000},
+    [4]  = {58,1000},
+    [5]  = {55,1000},
+    [6]  = {52,1000},
+    [7]  = {49,1000},
+    [8]  = {46,1000},
+    [9]  = {43,1000},
+    [10] = {41,1000},
+    [11] = {38,1000},
+    [12] = {36,1000}
+  };
 
   // Initialize the game_state struct and variables
-  int loop_num, i;
-  char answer_key[ARRAY_LEN];
+  int note_end, timer, current_note, song_start;
   state game_state = INIT;
-  while(1) {
+  while (1) {
+    switch(game_state) {
+      case INIT: {
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, "start", 5, 48, 45, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        char key = 0;
+        while (key == 0) {
+          key = getKey();
+        }
+        if (key != '*')
+          break;
+        game_state = MAIN_GAME;
+        break;
+      }
+    case MAIN_GAME: {
+      // Start the main game timer
+      runtimerA2();
+      Graphics_clearDisplay(&g_sContext); // Clear the display
+      Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
+      Graphics_flushBuffer(&g_sContext);
+      int countdown = timer;
+      while (countdown < 1000)
+        __no_operation();
+      Graphics_clearDisplay(&g_sContext); // Clear the display
+      Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
+      Graphics_flushBuffer(&g_sContext);
+      while (countdown < 2000)
+        __no_operation();
+      Graphics_clearDisplay(&g_sContext); // Clear the display
+      Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
+      Graphics_flushBuffer(&g_sContext);
+      while (countdown < 3000)
+        __no_operation();
+      Graphics_clearDisplay(&g_sContext); // Clear the display
+      Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
+      Graphics_flushBuffer(&g_sContext);
+      while (countdown < 4000)
+        __no_operation();
+      song_start = 1;
+      //
+    }
+    }
+  }
+/*  while(1) {
     switch(game_state) {
     case INIT: {
       // Display the starting text
@@ -122,10 +141,10 @@ void main()
       Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
       Graphics_flushBuffer(&g_sContext);
       fake_delay(1);
-      game_state = OUTPUT;
+      game_state = MAIN_GAME;
       break;
     }
-    case OUTPUT: {
+    case MAIN_GAME: {
       Graphics_clearDisplay(&g_sContext); // Clear the display
       Graphics_drawStringCentered(&g_sContext, "Watch closely...", 16, 48, 35, TRANSPARENT_TEXT);
       Graphics_flushBuffer(&g_sContext);
@@ -217,5 +236,5 @@ void main()
       // Timeout after 5 seconds
     }
     }
-  }
+  } */
 }
