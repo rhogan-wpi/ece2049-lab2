@@ -21,8 +21,9 @@ void init_buttons();
 unsigned char read_buttons();
 
 //Turn on the buzzer
-void buzzer_on(int frequency);
+void buzzer_on(int ticks);
 
+void runtimerA2(void);
 //Sets a specific note duration to the TimerA2
 //Assumption: A2 timer, Div1, and Up mode
 //void note_duration(int duration) {
