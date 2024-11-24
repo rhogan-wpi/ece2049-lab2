@@ -2,6 +2,32 @@
 #include <msp430.h>
 #include "peripherals.h"
 #include "functions.h"
+// Declare global variables
+volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
+
+// Define a struct to hold note information
+struct Note {
+  int pitch;
+  int duration;
+};
+
+// Program the struct that holds the song
+volatile struct Note scale[] {
+    [0]  = {73,1000},
+    [1]  = {69,1000},
+    [2]  = {65,1000},
+    [3]  = {62,1000},
+    [4]  = {58,1000},
+    [5]  = {55,1000},
+    [6]  = {52,1000},
+    [7]  = {49,1000},
+    [8]  = {46,1000},
+    [9]  = {43,1000},
+    [10] = {41,1000},
+    [11] = {38,1000},
+    [12] = {36,1000}
+};
+
 
 // Use an enum as the game state
 typedef enum{
@@ -9,12 +35,6 @@ typedef enum{
   MAIN_GAME,
   END_SCREEN,
 } state;
-
-// Define a struct to hold note information
-struct Note {
-  int pitch;
-  int duration;
-};
 
 __interrupt void timer_a2()
 {
@@ -26,8 +46,7 @@ __interrupt void timer_a2()
     current_note++;
   }
 }
-// Declare global variables
-int note_end = 0, timer = 0, current_note = 0, song_start = 0;
+
 void main()
 {
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
@@ -42,23 +61,6 @@ void main()
   // Clear the display
   Graphics_clearDisplay(&g_sContext);
   //Start the A2 timer
-
-  // Program the struct that holds the song
-  struct Note scale[] {
-    [0]  = {73,1000},
-    [1]  = {69,1000},
-    [2]  = {65,1000},
-    [3]  = {62,1000},
-    [4]  = {58,1000},
-    [5]  = {55,1000},
-    [6]  = {52,1000},
-    [7]  = {49,1000},
-    [8]  = {46,1000},
-    [9]  = {43,1000},
-    [10] = {41,1000},
-    [11] = {38,1000},
-    [12] = {36,1000}
-  };
 
   // Initialize the game_state struct and variables
   state game_state = INIT;
