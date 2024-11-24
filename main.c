@@ -26,7 +26,8 @@ __interrupt void timer_a2()
     current_note++;
   }
 }
-
+// Declare global variables
+int note_end = 0, timer = 0, current_note = 0, song_start = 0;
 void main()
 {
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
@@ -60,7 +61,6 @@ void main()
   };
 
   // Initialize the game_state struct and variables
-  int note_end, timer, current_note, song_start;
   state game_state = INIT;
   while (1) {
     switch(game_state) {
