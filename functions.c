@@ -1,3 +1,4 @@
+#include <msp430.h>
 #include "functions.h"
 // User written functions
 
