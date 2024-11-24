@@ -12,7 +12,7 @@ struct Note {
 };
 
 // Program the struct that holds the song
-volatile struct Note scale[] {
+volatile struct Note scale[] = {
     [0]  = {73,1000},
     [1]  = {69,1000},
     [2]  = {65,1000},
