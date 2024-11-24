@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <msp430.h>
+#include <stdint.h>
 
 //note struct defintion
 //struct note {

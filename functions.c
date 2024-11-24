@@ -1,4 +1,3 @@
-#include <msp430.h>
 #include "functions.h"
 // User written functions
 
@@ -95,7 +94,7 @@ A octave = 36
 void runtimerA2(void)
 {
   TA2CTL = TASSEL_1 | MC_1 | ID_0;
-  TACCR0 = 32
+  TACCR0 = 32;
   TA2CCTL0 = CCIE;
 }
 
