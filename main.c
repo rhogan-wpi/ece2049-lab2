@@ -5,7 +5,7 @@
 #define SONG_LENGTH 28 //Subject to change
 
 // Declare global variables
-volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
+volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
 
 // Define a struct to hold note information
 struct Note {
