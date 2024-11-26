@@ -66,6 +66,7 @@ void main() {
     switch(game_state) {
       case INIT: {
         BuzzerOff(); //turn off the buzzer
+        song_start = 0; //Stop the song
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);
