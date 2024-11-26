@@ -7,6 +7,7 @@
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
 volatile char key = 0;
+volatile state game_state;
 
 // Define a struct to hold note information
 struct Note {
@@ -77,7 +78,7 @@ void main() {
   //Start the A2 timer
 
   // Initialize the game_state struct and variables
-  state game_state = INIT;
+  game_state = INIT;
   while (1) {
     switch(game_state) {
       case INIT: {
