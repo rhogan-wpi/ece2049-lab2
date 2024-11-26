@@ -38,6 +38,7 @@ typedef enum {
   END_SCREEN,
 } state;
 
+#pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
   timer++;
   if (timer >= note_end && song_start) {
