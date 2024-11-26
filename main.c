@@ -68,7 +68,7 @@ void main() {
         BuzzerOff(); //turn off the buzzer
         song_start = 0; //Stop the song
         set_leds(0); //turn off the expansion LEDs
-        set_user_leds('0'); //turn off the user LEDs
+        set_user_leds(0); //turn off the user LEDs
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);
@@ -153,6 +153,7 @@ void main() {
           song_start = 0;
           current_note = 0;
           game_state = INIT;
+          break;
         } else if (current_note >= SONG_LENGTH) {
           game_state = END_SCREEN;
           break;
@@ -162,7 +163,7 @@ void main() {
           score += check_input(scale[current_note].pitch, user_input);
         }
 
-        if (score < SONG_LENGTH - 5) {
+        if (score < current_note - 5) {
           BuzzerOff();
           song_start = 0;
           current_note = 0;
@@ -173,6 +174,9 @@ void main() {
         break;
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
+      song_start = 0; //Stop the song
+      set_leds(0); //turn off the expansion LEDs
+      set_user_leds(0); //turn off the user LEDs
       Graphics_clearDisplay(&g_sContext); // Clear the display
       Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
       if (score >= SONG_LENGTH - 5) {
