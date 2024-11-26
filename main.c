@@ -49,6 +49,7 @@ __interrupt void timer_a2() {
     if (current_note < SONG_LENGTH) { //Play until the last note
       BuzzerOff();
       note_end = timer + scale[current_note].duration;
+      set_leds(scale[current_note].pitch);
       buzzer_on(scale[current_note].pitch);
       //set LEDs logic
       current_note++;
