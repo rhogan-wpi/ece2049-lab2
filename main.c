@@ -89,14 +89,14 @@ void main() {
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        set_user_leds(3);
+        set_user_leds(2);
         int countdown_start = timer;
         while (timer < (countdown_start + 1000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        set_user_leds(2);
+        set_user_leds(1);
         while (timer < (countdown_start + 2000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
