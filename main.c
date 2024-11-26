@@ -34,16 +34,20 @@ volatile struct Note scale[] = {
 // Use an enum as the game state
 typedef enum {
   INIT,
+  COUNTDOWN,
   MAIN_GAME,
   END_SCREEN,
 } state;
+// TODO move enum to a header
+volatile state game_state;
 
+#pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
   timer++;
   if (timer >= note_end && song_start) {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
-      BuzzerOff;
+      BuzzerOff();
       note_end = timer + scale[current_note].duration;
       buzzer_on(scale[current_note].pitch);
       //set LEDs logic
@@ -55,11 +59,11 @@ __interrupt void timer_a2() {
 }
 
 void main() {
-  // Global interrupt enable
-  _BIS_SR(GIE);
-
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
   // You can then configure it properly, if desired
+
+  // Global interrupt enable
+  _BIS_SR(GIE);
 
   // Initialize the MSP430
   initLeds();
@@ -72,7 +76,7 @@ void main() {
   //Start the A2 timer
 
   // Initialize the game_state struct and variables
-  state game_state = INIT;
+  game_state = INIT;
   while (1) {
     switch(game_state) {
       case INIT: {
@@ -87,36 +91,56 @@ void main() {
         }
         if (key != '*')
           break;
-        game_state = MAIN_GAME;
+        game_state = COUNTDOWN;
         break;
       }
-
-      case MAIN_GAME: {
+ 
+      case COUNTDOWN: {
         // Start the main game timer
         runtimerA2();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        int countdown = timer;
-        while (countdown < 1000)
+       set_user_leds(3);
+        int countdown_start = timer;
+        while (timer < (countdown_start + 1000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 2000)
+        set_user_leds(2);
+        while (timer < (countdown_start + 2000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 3000)
+        set_user_leds(0);
+        while (timer < (countdown_start + 3000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 4000)
+        set_user_leds(3);
+        while (timer < (countdown_start + 4000))
           __no_operation();
+        game_state = MAIN_GAME;
+        break;
+        case MAIN_GAME: {          
         song_start = 1;
-
+/*   if (key == '#') {
+            BuzzerOff();
+            song_start = 0;
+            current_note = 0;
+            game_state = INIT;
+            break;
+          }
+          song_start = 1;
+          char key = 0;
+          char user_input = 0;
+          while ((key && user_input) == 0) {
+            key = getKey();
+            user_input = read_buttons();
+          }*/
         //Push button polling logic
         while(song_start) {
           //If the player hit the note
@@ -151,6 +175,8 @@ void main() {
           break;
         game_state = INIT;
         break;
+     
+      } 
       }
     }
   }
