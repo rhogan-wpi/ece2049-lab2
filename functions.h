@@ -50,4 +50,4 @@ void runtimerA2(void);
 //}
 
 //
-int check_input(int pitch, unsigned char user_input);
+int check_input(int pitch, int user_input);
