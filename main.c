@@ -45,9 +45,12 @@ volatile state game_state;
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
   timer++;
-  key = getKey;
-  if (key == '#')
+  key = getKey();
+  if (key == '#') {
+    BuzzerOff;
+    song_start = 0;
     game_state = INIT;
+  }
   if (timer >= note_end && song_start) {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
