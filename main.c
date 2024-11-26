@@ -5,7 +5,7 @@
 #define SONG_LENGTH 28 //Subject to change
 
 // Declare global variables
-volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
+volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
 
 // Define a struct to hold note information
 struct Note {
@@ -46,6 +46,7 @@ __interrupt void timer_a2() {
       BuzzerOff;
       note_end = timer + scale[current_note].duration;
       buzzer_on(scale[current_note].pitch);
+      //set LEDs logic
       current_note++;
     } else {
       song_start = 0;
@@ -89,6 +90,7 @@ void main() {
         game_state = MAIN_GAME;
         break;
       }
+
       case MAIN_GAME: {
         // Start the main game timer
         runtimerA2();
@@ -114,7 +116,41 @@ void main() {
         while (countdown < 4000)
           __no_operation();
         song_start = 1;
-        //
+
+        //Push button polling logic
+        while(song_start) {
+          //If the player hit the note
+          if(current_note < SONG_LENGTH && timer <= note_end + 100) {
+            unsigned char button = read_buttons();
+            set_user_leds(button);
+            score ++;
+          }
+        }
+        game_state = END_SCREEN;
+        break;
+      }
+      case END_SCREEN: {
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
+
+        if (score >= SONG_LENGTH - 5) {
+          Graphics_drawStringCentered(&g_sContext, "You WON!", 10, 48, 15, TRANSPARENT_TEXT);
+        } else {
+          Graphics_drawStringCentered(&g_sContext, "You LOST!", 10, 48, 15, TRANSPARENT_TEXT);
+        }
+        Graphics_drawStringCentered(&g_sContext, "Your score:", 8, 48, 15, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, (char)(score), 7, 48, 15, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, "Press # to", 6, 48, 35, TRANSPARENT_TEXT);
+        Graphics_drawStringCentered(&g_sContext, "exit", 4, 48, 45, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        char key = 0;
+        while (key == 0) {
+          key = getKey();
+        }
+        if (key != '#')
+          break;
+        game_state = INIT;
+        break;
       }
     }
   }
