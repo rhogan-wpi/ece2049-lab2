@@ -101,26 +101,26 @@ void main() {
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-       set_user_leds(3);
+        // set_user_leds(3);
         int countdown_start = timer;
         while (timer < (countdown_start + 1000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        set_user_leds(2);
+        // set_user_leds(2);
         while (timer < (countdown_start + 2000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        set_user_leds(0);
+        // set_user_leds(0);
         while (timer < (countdown_start + 3000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        set_user_leds(3);
+        // set_user_leds(3);
         while (timer < (countdown_start + 4000))
           __no_operation();
         game_state = MAIN_GAME;
@@ -147,7 +147,7 @@ void main() {
           //If the player hit the note
           if(current_note < SONG_LENGTH && timer <= note_end + 100) {
             unsigned char button = read_buttons();
-            set_user_leds(button);
+            // set_user_leds(button);
             score ++;
           }
         }
@@ -169,7 +169,6 @@ void main() {
           }
           } else if (user_input != 0) {
             //CHECK USER INPUT
-            //SET LED BASED ON NOTE
       }
     case END_SCREEN: {
       Graphics_clearDisplay(&g_sContext); // Clear the display
