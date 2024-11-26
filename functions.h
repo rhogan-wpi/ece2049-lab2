@@ -9,6 +9,18 @@
 //};
 
 //typedef note Note;
+struct Note {
+  int pitch;
+  int duration;
+};
+
+// Enum for the game state
+typedef enum {
+  INIT,
+  COUNTDOWN,
+  MAIN_GAME,
+  END_SCREEN,
+} state;
 
 //Sets LEDs based on pitch
 void set_leds(int pitch);

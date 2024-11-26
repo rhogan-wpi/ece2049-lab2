@@ -8,10 +8,10 @@
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
 
 // Define a struct to hold note information
-struct Note {
-  int pitch;
-  int duration;
-};
+//struct Note {
+//  int pitch;
+//  int duration;
+//};
 
 // Program the struct that holds the song
 volatile struct Note scale[] = {
@@ -32,12 +32,12 @@ volatile struct Note scale[] = {
 
 
 // Use an enum as the game state
-typedef enum {
-  INIT,
-  COUNTDOWN,
-  MAIN_GAME,
-  END_SCREEN,
-} state;
+//typedef enum {
+//  INIT,
+//  COUNTDOWN,
+//  MAIN_GAME,
+//  END_SCREEN,
+//} state;
 // TODO move enum to a header
 volatile state game_state;
 
