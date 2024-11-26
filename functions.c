@@ -18,7 +18,6 @@ void set_leds(int pitch)
   P6OUT = P6OUT | output_mask;
 }
 
-
 // Initializes the two user LEDs
 void init_user_leds()
 {
@@ -126,3 +125,29 @@ void runtimerA2(void)
   TA2CCTL0 = CCIE;
 }
 
+/*
+Description: 
+1. Map the pitch of the previous note the supposedly correct Board buttons (1-4)
+2. Display whether the user got it right or not through the 2 user's LED
+3. Update score
+*/
+void check_input(int pitch, unsigned char user_input) {
+  //Find the supposedly correct user input
+  int true_button = 0;
+  if (pitch <= 73 && pitch >= 65)
+    true_button = 2;
+  if (pitch < 65 && pitch >= 55)
+    true_button = 1;
+  if (pitch < 55 && pitch >= 46)
+    true_button = 4;
+  if (pitch < 46 && pitch >= 36)
+    true_button = 8;
+
+  //Display user input --> Flash User's LED & Update score
+  if ((int)user_input == true_button) {
+    set_user_leds('1'); //01 --> Right user's LED
+    score ++;
+  } else {
+    set_user_leds('2'); //10 --> Left user's LED
+  }
+}

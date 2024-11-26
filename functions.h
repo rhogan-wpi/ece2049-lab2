@@ -48,3 +48,6 @@ void runtimerA2(void);
 //	TA2CCRO = duration - 1; //assume that we already converted seconds to ticks
 //	TA2CCTL0 = CCIE;
 //}
+
+//
+void check_input(int pitch, unsigned char user_input);
