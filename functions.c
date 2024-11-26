@@ -17,7 +17,7 @@ void set_user_leds(unsigned char uled)
 {
   //zero outputs
   P4OUT &= ~BIT7;
-  P1OUT &= BIT0;
+  P1OUT &= ~BIT0;
   //set outputs
   P4OUT = ((uled & BIT1) << 6);
   P1OUT = (uled & BIT0);
