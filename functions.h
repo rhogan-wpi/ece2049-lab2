@@ -10,6 +10,9 @@
 
 //typedef note Note;
 
+//Sets LEDs based on pitch
+void set_leds(int pitch);
+
 // Initializes the two user LEDs
 void init_user_leds();
 
