@@ -145,7 +145,9 @@ void main() {
         char key = 0;
         char user_input = 0;
         key = getKey();
-        user_input = read_buttons();
+        while (user_input == 0) {
+          user_input = read_buttons();
+        }
         if (key == '#') {
           BuzzerOff();
           song_start = 0;
