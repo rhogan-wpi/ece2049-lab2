@@ -69,7 +69,7 @@ void init_buttons()
 
 //Reads the four buttons
 int read_buttons() {
-  inbits = P7IN | P3IN | P2IN;
+  unsigned int inbits = P7IN | P3IN | P2IN;
   int state = 0;
   // pressed |= (P7IN & BIT0);
   // pressed |= ((P3IN & BIT6) >> 5);
