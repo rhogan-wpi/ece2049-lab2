@@ -47,14 +47,15 @@ __interrupt void timer_a2() {
   timer++;
   key = getKey();
   if (key == '#') {
-    BuzzerOff;
+    BuzzerOff();
     song_start = 0;
+    current_note = 0;
     game_state = INIT;
   }
   if (timer >= note_end && song_start) {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
-      BuzzerOff;
+      BuzzerOff();
       note_end = timer + scale[current_note].duration;
       buzzer_on(scale[current_note].pitch);
       current_note++;
@@ -106,22 +107,26 @@ void main() {
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
+        set_user_leds(3);
         int countdown_start = timer;
         while (timer < (countdown_start + 1000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
+        set_user_leds(1);
         while (timer < (countdown_start + 2000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
+        set_user_leds(0);
         while (timer < (countdown_start + 3000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
+        set_user_leds(3);
         while (timer < (countdown_start + 4000))
           __no_operation();
         game_state = MAIN_GAME;
