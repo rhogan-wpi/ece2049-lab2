@@ -68,7 +68,7 @@ void main() {
         BuzzerOff(); //turn off the buzzer
         song_start = 0; //Stop the song
         set_leds(0); //turn off the expansion LEDs
-        set_user_leds(0); //turn off the user LEDs
+        set_user_leds('0'); //turn off the user LEDs
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);

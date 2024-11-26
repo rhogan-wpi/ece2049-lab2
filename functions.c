@@ -37,8 +37,10 @@ void set_user_leds(unsigned char uled)
   P4OUT &= ~BIT7;
   P1OUT &= ~BIT0;
   //set outputs
-  P4OUT = ((uled & BIT1) << 6);
-  P1OUT = (uled & BIT0);
+  if (uled == 1)
+    P4OUT |= BIT7;
+  else if (uled == 2)
+    P1OUT |= BIT0;
 }
 
 // Initializes the buttons for input
