@@ -69,21 +69,12 @@ void init_buttons()
 
 //Reads the four buttons
 int read_buttons() {
-  unsigned int inbits = P7IN | P3IN | P2IN;
-  int state = 0;
-  // pressed |= (P7IN & BIT0);
-  // pressed |= ((P3IN & BIT6) >> 5);
-  // pressed |= (P2IN & BIT2);
-  // pressed |= ((P7IN & BIT4) >> 1);
-  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT0))
-		state = 1;
-  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT2))
-		state = 2;
-  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT4))
-		state = 4;
-  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT6))
-		state = 8;
-  return state;
+  int pressed = 0;
+  pressed &= ~(P7IN & BIT0);
+  pressed &= ~((P3IN & BIT6) >> 5);
+  pressed &= ~(P2IN & BIT2);
+  pressed &= ~((P7IN & BIT4) >> 1);
+  return pressed;
 }
 
 //Turn on the buzzer
