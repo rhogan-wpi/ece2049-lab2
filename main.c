@@ -112,6 +112,7 @@ void main() {
         while (timer < (countdown_start + 4000))
           __no_operation();
         game_state = MAIN_GAME;
+        set_user_leds(0);
         break;
         }
 
