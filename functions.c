@@ -1,6 +1,23 @@
 #include "functions.h"
 // User written functions
 
+// Set LED function for note display
+void set_leds(int pitch)
+{
+  // Zero output register
+  P6OUT &= ~(BIT4|BIT3|BIT2|BIT1);
+  if (pitch <= 73 && pitch >= 65)
+    output_mask = output_mask | BIT2;
+  if (pitch < 65 && pitch >= 55)
+    output_mask = output_mask | BIT1;
+  if (pitch < 55 && pitch >= 46)
+    output_mask = output_mask | BIT3;
+  if (pitch < 46 && pitch >= 36)
+    output_mask = output_mask | BIT4;
+  P6OUT = P6OUT | output_mask;
+}
+
+
 // Initializes the two user LEDs
 void init_user_leds()
 {
