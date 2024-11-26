@@ -6,40 +6,24 @@
 
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
-
-// Define a struct to hold note information
-//struct Note {
-//  int pitch;
-//  int duration;
-//};
+volatile state game_state;
 
 // Program the struct that holds the song
 volatile struct Note scale[] = {
-    [0]  = {73,1000},
-    [1]  = {69,1000},
-    [2]  = {65,1000},
-    [3]  = {62,1000},
-    [4]  = {58,1000},
-    [5]  = {55,1000},
-    [6]  = {52,1000},
-    [7]  = {49,1000},
-    [8]  = {46,1000},
-    [9]  = {43,1000},
-    [10] = {41,1000},
-    [11] = {38,1000},
-    [12] = {36,1000}
+  [0]  = {73,1000},
+  [1]  = {69,1000},
+  [2]  = {65,1000},
+  [3]  = {62,1000},
+  [4]  = {58,1000},
+  [5]  = {55,1000},
+  [6]  = {52,1000},
+  [7]  = {49,1000},
+  [8]  = {46,1000},
+  [9]  = {43,1000},
+  [10] = {41,1000},
+  [11] = {38,1000},
+  [12] = {36,1000}
 };
-
-
-// Use an enum as the game state
-//typedef enum {
-//  INIT,
-//  COUNTDOWN,
-//  MAIN_GAME,
-//  END_SCREEN,
-//} state;
-// TODO move enum to a header
-volatile state game_state;
 
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
