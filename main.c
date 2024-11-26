@@ -169,30 +169,29 @@ void main() {
           } else if (user_input != 0) {
             //CHECK USER INPUT
             //SET LED BASED ON NOTE
-          }
-        }
-          case END_SCREEN: {
-            Graphics_clearDisplay(&g_sContext); // Clear the display
-            Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
-            if (score >= SONG_LENGTH - 5) {
-              Graphics_drawStringCentered(&g_sContext, "You WON!", 10, 48, 15, TRANSPARENT_TEXT);
-            } else {
-              Graphics_drawStringCentered(&g_sContext, "You LOST!", 10, 48, 15, TRANSPARENT_TEXT);
-            }
-            Graphics_drawStringCentered(&g_sContext, "Your score:", 8, 48, 15, TRANSPARENT_TEXT);
-            Graphics_drawStringCentered(&g_sContext, (char)(score), 7, 48, 15, TRANSPARENT_TEXT);
-            Graphics_drawStringCentered(&g_sContext, "Press # to", 6, 48, 35, TRANSPARENT_TEXT);
-            Graphics_drawStringCentered(&g_sContext, "exit", 4, 48, 45, TRANSPARENT_TEXT);
-            Graphics_flushBuffer(&g_sContext);
-            char key = 0;
-            while (key == 0) {
-              key = getKey();
-            }
-            if (key != '#')
-              break;
-            game_state = INIT;
-            break;
-          }
+      }
+    case END_SCREEN: {
+      Graphics_clearDisplay(&g_sContext); // Clear the display
+      Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
+      if (score >= SONG_LENGTH - 5) {
+        Graphics_drawStringCentered(&g_sContext, "You WON!", 10, 48, 15, TRANSPARENT_TEXT);
+      } else {
+        Graphics_drawStringCentered(&g_sContext, "You LOST!", 10, 48, 15, TRANSPARENT_TEXT);
+      }
+      Graphics_drawStringCentered(&g_sContext, "Your score:", 8, 48, 15, TRANSPARENT_TEXT);
+      Graphics_drawStringCentered(&g_sContext, (char)(score), 7, 48, 15, TRANSPARENT_TEXT);
+      Graphics_drawStringCentered(&g_sContext, "Press # to", 6, 48, 35, TRANSPARENT_TEXT);
+      Graphics_drawStringCentered(&g_sContext, "exit", 4, 48, 45, TRANSPARENT_TEXT);
+      Graphics_flushBuffer(&g_sContext);
+      char key = 0;
+      while (key == 0) {
+        key = getKey();
+      }
+      if (key != '#')
+        break;
+      game_state = INIT;
+      break;
+    }
     }
   }
 }
