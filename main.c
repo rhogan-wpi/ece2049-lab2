@@ -81,33 +81,33 @@ void main()
         game_state = MAIN_GAME;
         break;
       }
-    case MAIN_GAME: {
-      // Start the main game timer
-      runtimerA2();
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      int countdown = timer;
-      while (countdown < 1000)
-        __no_operation();
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      while (countdown < 2000)
-        __no_operation();
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      while (countdown < 3000)
-        __no_operation();
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      while (countdown < 4000)
-        __no_operation();
-      song_start = 1;
-      //
-    }
+      case MAIN_GAME: {
+        // Start the main game timer
+        runtimerA2();
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        int countdown = timer;
+        while (countdown < 1000)
+          __no_operation();
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        while (countdown < 2000)
+          __no_operation();
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        while (countdown < 3000)
+          __no_operation();
+        Graphics_clearDisplay(&g_sContext); // Clear the display
+        Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
+        Graphics_flushBuffer(&g_sContext);
+        while (countdown < 4000)
+          __no_operation();
+        song_start = 1;
+        //
+      }
     }
   }
 /*  while(1) {
