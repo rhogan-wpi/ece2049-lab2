@@ -144,8 +144,8 @@ void main() {
         */
         char key = 0;
         char user_input = 0;
-        while ((key && user_input) == 0) {
-          key = getKey();
+        key = getKey();
+        while (user_input == 0) {
           user_input = read_buttons();
         }
         if (key == '#') {
