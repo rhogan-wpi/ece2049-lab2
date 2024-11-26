@@ -47,8 +47,10 @@ __interrupt void timer_a2()
   }
 }
 
-void main()
-{
+void main() {
+  //Global interrupt enable
+  _BIS_SR(GIE);
+
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
   // You can then configure it properly, if desired
 
