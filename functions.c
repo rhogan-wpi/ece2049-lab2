@@ -68,8 +68,8 @@ void init_buttons()
   }
 
 //Reads the four buttons
-int read_buttons() {
-  int pressed = 0;
+unsigned int read_buttons() {
+  unsigned int pressed = 0;
   pressed |= ~(P7IN & BIT0);
   pressed |= ~((P3IN & BIT6) >> 5);
   pressed |= ~(P2IN & BIT2);
@@ -131,11 +131,11 @@ Description:
 3. Update score
 Return: return either 1 (note hit) and 0 (otherwise)
 */
-int check_input(int pitch, int user_input) {
-  int hit = 0;
+unsigned int check_input(int pitch, unsigned int user_input) {
+  unsigned int hit = 0;
 
   //Find the supposedly correct user input
-  int true_button = 0;
+  unsigned int true_button = 0;
   if (pitch <= 73 && pitch >= 65)
     true_button = 2;
   if (pitch < 65 && pitch >= 55)
