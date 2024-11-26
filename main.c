@@ -140,7 +140,7 @@ void main() {
           while ((key && user_input) == 0) {
             key = getKey();
             user_input = read_buttons();
-          }*/
+          } */ /*
         //Push button polling logic
         while(song_start) {
           //If the player hit the note
@@ -150,8 +150,26 @@ void main() {
             score ++;
           }
         }
-        game_state = END_SCREEN;
-        break;
+        */
+          char key = 0;
+          char user_input = 0;
+          while ((key && user_input) == 0) {
+            key = getKey();
+            user_input = read_buttons();
+            }
+          if (key == '#') {
+            BuzzerOff();
+            song_start = 0;
+            current_note = 0;
+            game_state = INIT;
+          } else if (current_note >= SONG_LENGTH) {
+            game_state = END_SCREEN;
+            break;
+          }
+          } else if (user_input != 0) {
+            //CHECK USER INPUT
+            //SET LED BASED ON NOTE
+          }
         }
           case END_SCREEN: {
             Graphics_clearDisplay(&g_sContext); // Clear the display
