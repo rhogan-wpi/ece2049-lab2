@@ -152,7 +152,7 @@ void main() {
           }
         }
         */
-          char key = 0;
+          /*           char key = 0;
           char user_input = 0;
           while ((key && user_input) == 0) {
             key = getKey();
@@ -168,7 +168,7 @@ void main() {
             break;
           }
           } else if (user_input != 0) {
-            //CHECK USER INPUT
+          //CHECK USER INPUT */
       }
     case END_SCREEN: {
       Graphics_clearDisplay(&g_sContext); // Clear the display
