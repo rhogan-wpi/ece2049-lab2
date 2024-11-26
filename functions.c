@@ -144,10 +144,10 @@ void check_input(int pitch, unsigned char user_input) {
     true_button = 8;
 
   //Display user input --> Flash User's LED & Update score
-  if ((int)user_input == true_button) {
-    set_user_leds('1'); //01 --> Right user's LED
+  if ((int)(user_input) == true_button) {
+    set_user_leds('1'); //0x01 --> Right user's LED
     score ++;
   } else {
-    set_user_leds('2'); //10 --> Left user's LED
+    set_user_leds('2'); //0x10 --> Left user's LED
   }
 }
