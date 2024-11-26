@@ -81,6 +81,7 @@ void main() {
   while (1) {
     switch(game_state) {
       case INIT: {
+        BuzzerOff(); //turn off the buzzer
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
         Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);
@@ -171,6 +172,7 @@ void main() {
           //CHECK USER INPUT */
       }
     case END_SCREEN: {
+      BuzzerOff(); //turn off the buzzer
       Graphics_clearDisplay(&g_sContext); // Clear the display
       Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
       if (score >= SONG_LENGTH - 5) {
