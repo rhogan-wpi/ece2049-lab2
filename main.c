@@ -169,7 +169,7 @@ void main() {
           break;
         }
       }
-
+        break;
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
       Graphics_clearDisplay(&g_sContext); // Clear the display
