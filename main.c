@@ -7,7 +7,6 @@
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
 volatile char key = 0;
-volatile state game_state;
 
 // Define a struct to hold note information
 struct Note {
@@ -40,6 +39,8 @@ typedef enum {
   MAIN_GAME,
   END_SCREEN,
 } state;
+// TODO move enum to a header
+volatile state game_state;
 
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
