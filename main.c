@@ -6,6 +6,7 @@
 
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
+volatile char key = 0;
 
 // Define a struct to hold note information
 struct Note {
@@ -34,6 +35,7 @@ volatile struct Note scale[] = {
 // Use an enum as the game state
 typedef enum {
   INIT,
+  COUNTDOWN,
   MAIN_GAME,
   END_SCREEN,
 } state;
@@ -41,6 +43,9 @@ typedef enum {
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
   timer++;
+  key = getKey;
+  if (key == '#')
+    game_state = INIT;
   if (timer >= note_end && song_start) {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
@@ -87,10 +92,10 @@ void main() {
         }
         if (key != '*')
           break;
-        game_state = MAIN_GAME;
+        game_state = COUNTDOWN;
         break;
       }
-      case MAIN_GAME: {
+      case COUNTDOWN: {
         // Start the main game timer
         runtimerA2();
         Graphics_clearDisplay(&g_sContext); // Clear the display
@@ -114,7 +119,11 @@ void main() {
         Graphics_flushBuffer(&g_sContext);
         while (timer < (countdown_start + 4000))
           __no_operation();
-        song_start = 1;
+        game_state = MAIN_GAME;
+        break;
+        case MAIN_GAME: {
+          song_start = 1;
+        }
         //
       }
     }
