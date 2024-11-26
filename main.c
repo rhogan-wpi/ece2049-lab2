@@ -162,13 +162,13 @@ void main() {
         }
 
         if (score < SONG_LENGTH - 5) {
-            BuzzerOff()
-            song_start = 0;
-            current_note = 0;
-            game_state = END_SCREEN;
-            break;
-          }
+          BuzzerOff();
+          song_start = 0;
+          current_note = 0;
+          game_state = END_SCREEN;
+          break;
         }
+      }
 
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
