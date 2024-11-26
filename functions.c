@@ -15,8 +15,8 @@ void init_user_leds()
 //Sets the two user LEDs
 void set_user_leds(unsigned char uled)
 {
-  P4OUT |= ((uled & BIT1) << 6);
-  P1OUT |= (uled & BIT0);
+  P4OUT = ((uled & BIT1) << 6);
+  P1OUT = (uled & BIT0);
 }
 
 // Initializes the buttons for input
