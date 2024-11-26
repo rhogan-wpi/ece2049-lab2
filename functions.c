@@ -4,6 +4,7 @@
 // Set LED function for note display
 void set_leds(int pitch)
 {
+  unsigned char output_mask = 0;
   // Zero output register
   P6OUT &= ~(BIT4|BIT3|BIT2|BIT1);
   if (pitch <= 73 && pitch >= 65)
