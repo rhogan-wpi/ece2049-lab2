@@ -124,8 +124,9 @@ void main() {
           __no_operation();
         game_state = MAIN_GAME;
         break;
-        case MAIN_GAME: {          
-        song_start = 1;
+        }
+        case MAIN_GAME: {
+          song_start = 1;
 /*   if (key == '#') {
             BuzzerOff();
             song_start = 0;
@@ -173,137 +174,7 @@ void main() {
               break;
             game_state = INIT;
             break;
-          } 
-      }
+          }
     }
   }
-/*  while(1) {
-    switch(game_state) {
-    case INIT: {
-      // Display the starting text
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "SIMON", 5, 48, 15, TRANSPARENT_TEXT);
-      Graphics_drawStringCentered(&g_sContext, "Press * to", 10, 48, 35, TRANSPARENT_TEXT);
-      Graphics_drawStringCentered(&g_sContext, "start", 5, 48, 45, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      // Initialize the loop counter
-      loop_num = 1;
-      // Initialize the answer array to random characters 1, 2, 3, 4.
-      for (i = 0; i < ARRAY_LEN; i++) {
-        // Generate random numbers, take the remainder, then add an offset to convert to the correct representation as char
-        answer_key[i] = (rand() % 4) + '1';
-      }
-      // Wait in "Press any key to start"
-      char ans =get_input();
-      if (ans != '*')
-        break;
-      fake_delay(1);
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      fake_delay(1);
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      fake_delay(1);
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      fake_delay(1);
-      game_state = MAIN_GAME;
-      break;
-    }
-    case MAIN_GAME: {
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "Watch closely...", 16, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      set_leds(0);
-      fake_delay(1);
-      // Enter loop for N times
-      for (i = 0; i < loop_num; i++) {
-        // Blink LED
-        set_leds(answer_key[i]);
-        // Sound Buzzer
-        buzzer_on(answer_key[i]);
-        // WRITE A FUNCTION FOR SPECIFIC NOTES
-        fake_delay(7);
-        BuzzerOff();
-        set_leds('0');
-        fake_delay(4);
-      }
-      fake_delay(2);
-      set_leds('0');
-      game_state = WAIT_FOR_INPUT;
-      break;
-    }
-    case WAIT_FOR_INPUT: {
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "now input", 9, 48, 35, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      // Enter loop for N times
-      for (i = 0; i < loop_num; i++) {
-        // Store user input
-        char ans = get_input();
-        char disp[2] = {ans, '\0'};
-        Graphics_clearDisplay(&g_sContext); // Clear the display
-        Graphics_drawStringCentered(&g_sContext, disp, 1, 48, 35, TRANSPARENT_TEXT);
-        Graphics_flushBuffer(&g_sContext);
-        // Set LEDs
-        set_leds(ans);
-        // Play buzzer
-        buzzer_on(ans);
-        fake_delay(1);
-        BuzzerOff();
-        if (ans != answer_key[i]) {
-          fake_delay(1);
-          game_state = INPUT_FALSE;
-          break;
-        }
-      }
-      if (game_state != INPUT_FALSE) {
-        fake_delay(1);
-        game_state = INPUT_TRUE;
-      }
-      break;
-    }
-    case INPUT_TRUE: {
-      // Display Correct!
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "Correct!", 8, 48, 15, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      // Increment counter
-      loop_num++;
-      fake_delay(6);
-      // Branch to OUTPUT
-      game_state = OUTPUT;
-      break;
-    }
-    case INPUT_FALSE: {
-      // Display WRONG
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "WRONG!", 6, 48, 15, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      // Branch to GAME_OVER
-      fake_delay(4);
-      game_state = GAME_OVER;
-      break;
-    }
-    case GAME_OVER: {
-      set_leds('0'); // Clear LEDs
-      Graphics_clearDisplay(&g_sContext); // Clear the display
-      Graphics_drawStringCentered(&g_sContext, "GAME OVER", 9, 48, 15, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      fake_delay(3);
-      // Display Play again?
-      Graphics_drawStringCentered(&g_sContext, "Play again?", 12, 48, 45, TRANSPARENT_TEXT);
-      Graphics_flushBuffer(&g_sContext);
-      // Branch to INIT
-      get_input();
-      game_state = INIT;
-      // Display Quit?
-      // Exit
-      // Timeout after 5 seconds
-    }
-    }
-  } */
 }
