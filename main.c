@@ -2,6 +2,8 @@
 #include <msp430.h>
 #include "peripherals.h"
 #include "functions.h"
+#define SONG_LENGTH 28 //Subject to change
+
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
 
@@ -30,25 +32,29 @@ volatile struct Note scale[] = {
 
 
 // Use an enum as the game state
-typedef enum{
+typedef enum {
   INIT,
   MAIN_GAME,
   END_SCREEN,
 } state;
 
-__interrupt void timer_a2()
-{
+__interrupt void timer_a2() {
   timer++;
   if (timer >= note_end && song_start) {
-    BuzzerOff;
-    note_end = timer + scale[current_note].duration;
-    buzzer_on(scale[current_note].pitch);
-    current_note++;
+    BuzzerOff; //Turn off buzzer if exceeds note duration
+    if (current_note < SONG_LENGTH) { //Play until the last note
+      BuzzerOff;
+      note_end = timer + scale[current_note].duration;
+      buzzer_on(scale[current_note].pitch);
+      current_note++;
+    } else {
+      song_start = 0;
+    }
   }
 }
 
 void main() {
-  //Global interrupt enable
+  // Global interrupt enable
   _BIS_SR(GIE);
 
   WDTCTL = WDTPW | WDTHOLD;    // Stop watchdog timer. Always need to stop this!!
