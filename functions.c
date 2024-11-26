@@ -70,10 +70,10 @@ void init_buttons()
 //Reads the four buttons
 int read_buttons() {
   int pressed = 0;
-  pressed &= ~(P7IN & BIT0);
-  pressed &= ~((P3IN & BIT6) >> 5);
-  pressed &= ~(P2IN & BIT2);
-  pressed &= ~((P7IN & BIT4) >> 1);
+  pressed |= ~(P7IN & BIT0);
+  pressed |= ~((P3IN & BIT6) >> 5);
+  pressed |= ~(P2IN & BIT2);
+  pressed |= ~((P7IN & BIT4) >> 1);
   return pressed;
 }
 
