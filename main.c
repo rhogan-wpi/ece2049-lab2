@@ -95,23 +95,23 @@ void main() {
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "3...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        int countdown = timer;
-        while (countdown < 1000)
+        int countdown_start = timer;
+        while (timer < (countdown_start + 1000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "2...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 2000)
+        while (timer < (countdown_start + 2000)
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "1...", 4, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 3000)
+        while (timer < (countdown_start + 3000))
           __no_operation();
         Graphics_clearDisplay(&g_sContext); // Clear the display
         Graphics_drawStringCentered(&g_sContext, "GO!", 3, 48, 35, TRANSPARENT_TEXT);
         Graphics_flushBuffer(&g_sContext);
-        while (countdown < 4000)
+        while (timer < (countdown_start + 4000))
           __no_operation();
         song_start = 1;
         //
