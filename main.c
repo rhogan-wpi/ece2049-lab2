@@ -6,7 +6,6 @@
 
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0;
-volatile char key = 0;
 
 // Define a struct to hold note information
 struct Note {
@@ -45,13 +44,6 @@ volatile state game_state;
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
 __interrupt void timer_a2() {
   timer++;
-  key = getKey();
-  if (key == '#') {
-    BuzzerOff();
-    song_start = 0;
-    current_note = 0;
-    game_state = INIT;
-  }
   if (timer >= note_end && song_start) {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
@@ -133,6 +125,19 @@ void main() {
         break;
         case MAIN_GAME: {
           song_start = 1;
+          char key = 0;
+          char user_input = 0;
+          while ((key && user_input) == 0) {
+            key = getKey();
+            user_input = read_buttons();
+          }
+          if (key == '#') {
+            BuzzerOff();
+            song_start = 0;
+            current_note = 0;
+            game_state = INIT;
+            break;
+          }
         }
         //
       }
