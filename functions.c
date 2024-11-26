@@ -68,14 +68,22 @@ void init_buttons()
   }
 
 //Reads the four buttons
-unsigned char read_buttons()
+int read_buttons()
 {
-  unsigned char pressed = 0;
-  pressed |= (P7IN & BIT0);
-  pressed |= ((P3IN & BIT6) >> 5);
-  pressed |= (P2IN & BIT2);
-  pressed |= ((P7IN & BIT4) >>1);
-  return pressed;
+  int state = 0;
+  // pressed |= (P7IN & BIT0);
+  // pressed |= ((P3IN & BIT6) >> 5);
+  // pressed |= (P2IN & BIT2);
+  // pressed |= ((P7IN & BIT4) >> 1);
+  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT0))
+		state = 1;
+  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT2))
+		state = 2;
+  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT4))
+		state = 4;
+  if (inbits & (BIT6|BIT4|BIT2|BIT0) == (BIT6))
+		state = 8;
+  return state;
 }
 
 //Turn on the buzzer
@@ -132,7 +140,7 @@ Description:
 3. Update score
 Return: return either 1 (note hit) and 0 (otherwise)
 */
-int check_input(int pitch, unsigned char user_input) {
+int check_input(int pitch, int user_input) {
   int hit = 0;
 
   //Find the supposedly correct user input
@@ -147,7 +155,7 @@ int check_input(int pitch, unsigned char user_input) {
     true_button = 8;
 
   //Display user input --> Flash User's LED & Update score
-  if ((int)(user_input) == true_button) {
+  if (user_input == true_button) {
     set_user_leds(1); //0x01 --> Right user's LED
     hit = 1;
   } else {

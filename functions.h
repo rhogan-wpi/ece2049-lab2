@@ -35,7 +35,7 @@ void set_user_leds(unsigned char uled);
 void init_buttons();
 
 //Reads the four buttons
-unsigned char read_buttons();
+int read_buttons();
 
 //Turn on the buzzer
 void buzzer_on(int ticks);
