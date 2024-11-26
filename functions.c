@@ -130,8 +130,11 @@ Description:
 1. Map the pitch of the previous note the supposedly correct Board buttons (1-4)
 2. Display whether the user got it right or not through the 2 user's LED
 3. Update score
+Return: return either 1 (note hit) and 0 (otherwise)
 */
-void check_input(int pitch, unsigned char user_input) {
+int check_input(int pitch, unsigned char user_input) {
+  int hit = 0;
+
   //Find the supposedly correct user input
   int true_button = 0;
   if (pitch <= 73 && pitch >= 65)
@@ -146,8 +149,10 @@ void check_input(int pitch, unsigned char user_input) {
   //Display user input --> Flash User's LED & Update score
   if ((int)(user_input) == true_button) {
     set_user_leds('1'); //0x01 --> Right user's LED
-    score ++;
+    hit = 1;
   } else {
     set_user_leds('2'); //0x10 --> Left user's LED
   }
+
+  return hit;
 }

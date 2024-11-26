@@ -158,7 +158,7 @@ void main() {
         }
         //Check (for accuracy) user input
         if (user_input != 0) {
-          check_input(scale[current_note].pitch, user_input);
+          score += check_input(scale[current_note].pitch, user_input);
         }
 
         if (score < SONG_LENGTH - 5) {
