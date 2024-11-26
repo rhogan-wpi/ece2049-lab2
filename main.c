@@ -126,7 +126,8 @@ void main() {
         game_state = MAIN_GAME;
         break;
         }
-        case MAIN_GAME: {
+
+      case MAIN_GAME: {
           song_start = 1;
 /*   if (key == '#') {
             BuzzerOff();
@@ -152,24 +153,35 @@ void main() {
           }
         }
         */
-          /*           char key = 0;
-          char user_input = 0;
-          while ((key && user_input) == 0) {
-            key = getKey();
-            user_input = read_buttons();
-            }
-          if (key == '#') {
-            BuzzerOff();
+        char key = 0;
+        char user_input = 0;
+        while ((key && user_input) == 0) {
+          key = getKey();
+          user_input = read_buttons();
+        }
+        if (key == '#') {
+          BuzzerOff();
+          song_start = 0;
+          current_note = 0;
+          game_state = INIT;
+        } else if (current_note >= SONG_LENGTH) {
+          game_state = END_SCREEN;
+          break;
+        }
+        //Check (for accuracy) user input
+        if (user_input != 0) {
+          check_input(scale[current_note].pitch, user_input);
+        }
+
+        if (score < SONG_LENGTH - 5) {
+            BuzzerOff()
             song_start = 0;
             current_note = 0;
-            game_state = INIT;
-          } else if (current_note >= SONG_LENGTH) {
             game_state = END_SCREEN;
             break;
           }
-          } else if (user_input != 0) {
-          //CHECK USER INPUT */
-      }
+        }
+
     case END_SCREEN: {
       Graphics_clearDisplay(&g_sContext); // Clear the display
       Graphics_drawStringCentered(&g_sContext, "MSP430 HERO", 11, 48, 15, TRANSPARENT_TEXT);
