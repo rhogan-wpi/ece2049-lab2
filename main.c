@@ -8,7 +8,7 @@
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
 volatile state game_state;
 
-// Program the struct that holds the song
+// Program the struct that holds the song - Christmas Songs!
 volatile struct Note scale[] = {
   [0]  = {73,1000},
   [1]  = {69,1000},
