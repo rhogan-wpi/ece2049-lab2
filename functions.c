@@ -131,8 +131,8 @@ Description:
 3. Update score
 Return: return either 1 (note hit) and 0 (otherwise)
 */
-unsigned int check_input(int pitch, unsigned int user_input) {
-  unsigned int hit = 0;
+int check_input(int pitch, unsigned int user_input) {
+  int hit = 0;
 
   //Find the supposedly correct user input
   unsigned int true_button = 0;
