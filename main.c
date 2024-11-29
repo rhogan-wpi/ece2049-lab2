@@ -2,7 +2,7 @@
 #include <msp430.h>
 #include "peripherals.h"
 #include "functions.h"
-#define SONG_LENGTH 28 //Subject to change
+#define SONG_LENGTH 12 //Subject to change
 
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
