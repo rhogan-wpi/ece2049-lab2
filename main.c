@@ -178,6 +178,8 @@ void main() {
       }
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
+      char user_score = 5 + '0';
+      char disp[2] = {user_score, '\0'};
       song_start = 0; //Stop the song
       set_leds(0); //turn off the expansion LEDs
       set_user_leds(0); //turn off the user LEDs
@@ -189,7 +191,7 @@ void main() {
         Graphics_drawStringCentered(&g_sContext, "You LOST!", 10, 48, 35, TRANSPARENT_TEXT);
       }
       Graphics_drawStringCentered(&g_sContext, "Your score:", 11, 48, 55, TRANSPARENT_TEXT);
-      Graphics_drawStringCentered(&g_sContext, (char)(score), 2, 48, 75, TRANSPARENT_TEXT);
+      Graphics_drawStringCentered(&g_sContext, disp, 1, 48, 75, TRANSPARENT_TEXT);
 //      Graphics_drawStringCentered(&g_sContext, "Press # to", 6, 48, 95, TRANSPARENT_TEXT);
 //      Graphics_drawStringCentered(&g_sContext, "exit", 4, 48, 95, TRANSPARENT_TEXT);
       Graphics_flushBuffer(&g_sContext);
