@@ -73,7 +73,7 @@ unsigned int read_buttons() {
   pressed |= BIT0 & ~(P7IN & BIT0);
   pressed |= BIT1 & ~((P3IN & BIT6) >> 5);
   pressed |= BIT2 & ~(P2IN & BIT2);
-  pressed |= BIT3 % ~((P7IN & BIT4) >> 1);
+  pressed |= BIT3 & ~((P7IN & BIT4) >> 1);
   return pressed;
 }
 
