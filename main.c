@@ -179,8 +179,8 @@ void main() {
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
       char score_tens, score_ones;
-      score_tens = (score % 10) + '0';
-      score_ones = (score - ((score % 10) * 10)) + '0';
+      score_tens = (score / 10) + '0';
+      score_ones = (score % 10) + '0';
       char disp[3] = {score_tens, score_ones, '\0'};
       song_start = 0; //Stop the song
       set_leds(0); //turn off the expansion LEDs
