@@ -119,30 +119,6 @@ void main() {
 
       case MAIN_GAME: {
           song_start = 1;
-/*   if (key == '#') {
-            BuzzerOff();
-            song_start = 0;
-            current_note = 0;
-            game_state = INIT;
-            break;
-          }
-          song_start = 1;
-          char key = 0;
-          char user_input = 0;
-          while ((key && user_input) == 0) {
-            key = getKey();
-            user_input = read_buttons();
-          } */ /*
-        //Push button polling logic
-        while(song_start) {
-          //If the player hit the note
-          if(current_note < SONG_LENGTH && timer <= note_end + 100) {
-            unsigned char button = read_buttons();
-            set_user_leds(button);
-            score ++;
-          }
-        }
-        */
         char key = 0;
         unsigned int user_input = 0;
         int temp_current_note = current_note;
