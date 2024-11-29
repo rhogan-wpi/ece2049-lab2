@@ -137,9 +137,9 @@ int check_input(int pitch, unsigned int user_input) {
   //Find the supposedly correct user input
   unsigned int true_button = 0;
   if (pitch <= 73 && pitch >= 65)
-    true_button = 2;
-  if (pitch < 65 && pitch >= 55)
     true_button = 1;
+  if (pitch < 65 && pitch >= 55)
+    true_button = 2;
   if (pitch < 55 && pitch >= 46)
     true_button = 4;
   if (pitch < 46 && pitch >= 36)
