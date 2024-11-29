@@ -172,6 +172,7 @@ void main() {
           break;
         }
         break;
+      }
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
       song_start = 0; //Stop the song
