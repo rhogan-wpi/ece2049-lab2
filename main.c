@@ -145,9 +145,11 @@ void main() {
         char key = 0;
         unsigned int user_input = 0;
         int temp_current_note = current_note;
-        while (((key && user_input) == 0 ) && (temp_current_note == current_note)) {
+        while (1) {
           key = getKey();
           user_input = read_buttons();
+          if ((key || user_input) || (temp_current_note != current_note ))
+            break;
         }
         if (key == '#') {
           BuzzerOff();
