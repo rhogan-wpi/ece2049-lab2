@@ -170,7 +170,7 @@ void main() {
         Graphics_drawStringCentered(&g_sContext, "You LOST!", 10, 48, 35, TRANSPARENT_TEXT);
       }
       Graphics_drawStringCentered(&g_sContext, "Your score:", 11, 48, 55, TRANSPARENT_TEXT);
-      Graphics_drawStringCentered(&g_sContext, disp, 2, 48, 75, TRANSPARENT_TEXT);
+      Graphics_drawStringCentered(&g_sContext, disp, 3, 48, 75, TRANSPARENT_TEXT);
 //      Graphics_drawStringCentered(&g_sContext, "Press # to", 6, 48, 95, TRANSPARENT_TEXT);
 //      Graphics_drawStringCentered(&g_sContext, "exit", 4, 48, 95, TRANSPARENT_TEXT);
       Graphics_flushBuffer(&g_sContext);
