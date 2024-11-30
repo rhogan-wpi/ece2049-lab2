@@ -10,19 +10,20 @@ volatile state game_state;
 
 // Program the struct that holds the song - Christmas Songs!
 volatile struct Note scale[] = {
-  [0]  = {73,1000},
-  [1]  = {69,1000},
-  [2]  = {65,1000},
-  [3]  = {62,1000},
-  [4]  = {58,1000},
-  [5]  = {55,1000},
-  [6]  = {52,1000},
-  [7]  = {49,1000},
-  [8]  = {46,1000},
-  [9]  = {43,1000},
-  [10] = {41,1000},
-  [11] = {38,1000},
-  [12] = {36,1000}
+  [0]  = {0, 10}, //sacrificial first note
+  [1]  = {73,1000},
+  [2]  = {69,1000},
+  [3]  = {65,1000},
+  [4]  = {62,1000},
+  [5]  = {58,1000},
+  [6]  = {55,1000},
+  [7]  = {52,1000},
+  [8]  = {49,1000},
+  [9]  = {46,1000},
+  [10]  = {43,1000},
+  [11] = {41,1000},
+  [12] = {38,1000},
+  [13] = {36,1000}
 };
 
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
@@ -32,11 +33,11 @@ __interrupt void timer_a2() {
     BuzzerOff; //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
       BuzzerOff();
+      current_note++;
       note_end = timer + scale[current_note].duration;
       set_leds(scale[current_note].pitch);
       buzzer_on(scale[current_note].pitch);
       //set LEDs logic
-      current_note++;
     } else {
       song_start = 0;
     }
