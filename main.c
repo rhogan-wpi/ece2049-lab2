@@ -9,21 +9,49 @@ volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 
 volatile state game_state;
 
 // Program the struct that holds the song - Christmas Songs!
+// Mariah Carey's All I Want For Christmas Is You...
 volatile struct Note scale[] = {
   [0]  = {0, 10}, //sacrificial first note
-  [1]  = {73,1000},
-  [2]  = {69,1000},
-  [3]  = {65,1000},
-  [4]  = {62,1000},
-  [5]  = {58,1000},
-  [6]  = {55,1000},
-  [7]  = {52,1000},
-  [8]  = {49,1000},
-  [9]  = {46,1000},
-  [10]  = {43,1000},
-  [11] = {41,1000},
-  [12] = {38,1000},
-  [13] = {36,1000}
+  [1]  = {G4, quar},
+  [2]  = {A4, quar},
+  [3]  = {B4, quar},
+  [4]  = {D5, half},
+  [5]  = {B4, quar},
+  [6]  = {A4, quar},
+  [7]  = {G4, half},
+  [8]  = {G4, quar},
+  [9]  = {G4, quar},
+  [10]  = {A4, quar},
+  [11] = {B4, quar},
+  [12] = {D5, half},
+  [13] = {B4, quar},
+  [14] = {A4, quar},
+  [15] = {G4, half},
+  [16] = {F4#, quar},
+  [17] = {G4, quar},
+  [18] = {A4, quar},
+  [19] = {B4, quar},
+  [20] = {G4, half},
+  [21] = {G4, quar},
+  [22] = {A4, quar},
+  [23] = {B4, quar},
+  [24] = {D5, half},
+  [25] = {C5, quar},
+  [26] = {B4, quar},
+  [27] = {A4, quar},
+  [28] = {G4, half},
+  [29] = {G4, quar},
+  [30] = {G4, quar},
+  [31] = {A4, quar},
+  [32] = {B4, quar},
+  [33] = {C5, quar},
+  [34] = {D5, half},
+  [35] = {C5, quar},
+  [36] = {B4, quar},
+  [37] = {A4, quar},
+  [38] = {G4, half},
+  [39] = {G4, quar},
+  [40] = {A4, quar}
 };
 
 #pragma vector=TIMER2_A0_VECTOR //What does this do? No one knows...
