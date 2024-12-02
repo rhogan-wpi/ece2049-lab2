@@ -167,13 +167,13 @@ int check_input(int pitch, unsigned int user_input) {
 
   //Find the supposedly correct user input
   unsigned int true_button = 0;
-  if (pitch <= 73 && pitch >= 65)
+  if (pitch <= 125 && pitch >= 93)
     true_button = 1;
-  if (pitch < 65 && pitch >= 55)
+  if (pitch < 93 && pitch >= 69)
     true_button = 2;
-  if (pitch < 55 && pitch >= 46)
+  if (pitch < 69 && pitch >= 52)
     true_button = 4;
-  if (pitch < 46 && pitch >= 36)
+  if (pitch < 52 && pitch >= 36)
     true_button = 8;
 
   //Display user input --> Flash User's LED & Update score
