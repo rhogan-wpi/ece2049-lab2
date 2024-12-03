@@ -7,13 +7,13 @@ void set_leds(int pitch)
   unsigned char output_mask = 0;
   // Zero output register
   P6OUT &= ~(BIT4|BIT3|BIT2|BIT1);
-  if (pitch <= 73 && pitch >= 65)
+  if (pitch <= 125 && pitch >= 93)
     output_mask = output_mask | BIT2;
-  if (pitch < 65 && pitch >= 55)
-    output_mask = output_mask | BIT1;
-  if (pitch < 55 && pitch >= 46)
+  if (pitch < 93 && pitch >= 69
+      output_mask = output_mask | BIT1;
+  if (pitch < 69 && pitch >= 52)
     output_mask = output_mask | BIT3;
-  if (pitch < 46 && pitch >= 36)
+  if (pitch < 52 && pitch >= 36)
     output_mask = output_mask | BIT4;
   P6OUT = P6OUT | output_mask;
 }
