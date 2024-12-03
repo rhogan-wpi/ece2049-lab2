@@ -184,7 +184,7 @@ void main() {
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
       int score_tens, score_ones;
-      score_tens = ((score - (score % 10)) / 10) + '0';
+      score_tens = ((score - (score / 10)) % 10) + '0';
       score_ones = (score % 10) + '0';
       char disp[3] = {score_tens, score_ones, '\0'};
       song_start = 0; //Stop the song
