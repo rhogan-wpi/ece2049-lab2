@@ -2,7 +2,7 @@
 #include <msp430.h>
 #include "peripherals.h"
 #include "functions.h"
-#define SONG_LENGTH 12 //Subject to change
+#define SONG_LENGTH 41 //Subject to change
 
 // Declare global variables
 volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
@@ -27,7 +27,7 @@ volatile struct Note scale[] = {
   [13] = {B4, quar},
   [14] = {A4, quar},
   [15] = {G4, half},
-  [16] = {F4#, quar},
+  [16] = {F4s, quar},
   [17] = {G4, quar},
   [18] = {A4, quar},
   [19] = {B4, quar},
@@ -58,7 +58,7 @@ volatile struct Note scale[] = {
 __interrupt void timer_a2() {
   timer++;
   if (timer >= note_end && song_start) {
-    BuzzerOff; //Turn off buzzer if exceeds note duration
+    BuzzerOff(); //Turn off buzzer if exceeds note duration
     if (current_note < SONG_LENGTH) { //Play until the last note
       BuzzerOff();
       current_note++;
