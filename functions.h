@@ -27,10 +27,10 @@
 #define A5 36
 
 // Duration
-#define whole 1000
-#define half 500
-#define quar 250
-#define eight 125
+#define whole 2000
+#define half 1000
+#define quar 500
+#define eight 250
 
 //typedef note Note;
 struct Note {
