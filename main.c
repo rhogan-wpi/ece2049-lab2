@@ -172,7 +172,7 @@ void main() {
           score += check_input(scale[current_note].pitch, user_input);
         }
 
-        if (score < current_note - 5) {
+        if (score < (current_note - 5)) {
           BuzzerOff();
           song_start = 0;
           current_note = 0;
