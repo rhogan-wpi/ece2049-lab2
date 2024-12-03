@@ -147,16 +147,8 @@ void main() {
         }
 
       case MAIN_GAME: {
-          song_start = 1;
-        char key = 0;
-        unsigned int user_input = 0;
+        song_start = 1;
         int temp_current_note = current_note;
-        while (1) {
-          key = getKey();
-          user_input = read_buttons();
-          if ((key || user_input) || (temp_current_note != current_note ))
-            break;
-        }
         if (key == '#') {
           BuzzerOff();
           song_start = 0;
@@ -172,12 +164,20 @@ void main() {
           score += check_input(scale[current_note].pitch, user_input);
         }
 
-        if (score < (current_note - 5)) {
+        if (score < (temp_current_note - 5)) {
           BuzzerOff();
           song_start = 0;
           current_note = 0;
           game_state = END_SCREEN;
           break;
+        }
+        char key = 0;
+        unsigned int user_input = 0;
+        while (1) {
+          key = getKey();
+          user_input = read_buttons();
+          if ((key || user_input) || (temp_current_note != current_note ))
+            break;
         }
         break;
       }
