@@ -5,7 +5,7 @@
 #define SONG_LENGTH 41 //Subject to change
 
 // Declare global variables
-volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0;
+volatile int note_end = 0, timer = 0, current_note = 0, song_start = 0, score = 0, note_flag = 0;
 volatile state game_state;
 
 // Program the struct that holds the song - Christmas Songs!
@@ -62,6 +62,7 @@ __interrupt void timer_a2() {
     if (current_note < SONG_LENGTH) { //Play until the last note
       BuzzerOff();
       current_note++;
+      set_user_leds(0);
       note_end = timer + scale[current_note].duration;
       set_leds(scale[current_note].pitch);
       buzzer_on(scale[current_note].pitch);
@@ -147,8 +148,11 @@ void main() {
         }
 
       case MAIN_GAME: {
+        char key;
+        unsigned int user_input;
         song_start = 1;
         int temp_current_note = current_note;
+        int temp_score = score;
         if (key == '#') {
           BuzzerOff();
           song_start = 0;
@@ -160,31 +164,31 @@ void main() {
           break;
         }
         //Check (for accuracy) user input
-        if (user_input != 0) {
-          score += check_input(scale[current_note].pitch, user_input);
+        if (note_flag < current_note && user_input != 0){
+            score += check_input(scale[current_note].pitch, user_input);
+            note_flag++;
         }
-
-        if (score < (temp_current_note - 5)) {
+        if (temp_score < (temp_current_note - 5)) {
           BuzzerOff();
           song_start = 0;
           current_note = 0;
           game_state = END_SCREEN;
           break;
         }
-        char key = 0;
-        unsigned int user_input = 0;
+        key = 0;
+        user_input = 0;
         while (1) {
           key = getKey();
           user_input = read_buttons();
           if ((key || user_input) || (temp_current_note != current_note ))
-            break;
+              break;
         }
         break;
       }
     case END_SCREEN: {
       BuzzerOff(); //turn off the buzzer
       int score_tens, score_ones;
-      score_tens = ((score - (score / 10)) % 10) + '0';
+      score_tens = ((score - (score % 10)) / 10) + '0';
       score_ones = (score % 10) + '0';
       char disp[3] = {score_tens, score_ones, '\0'};
       song_start = 0; //Stop the song
